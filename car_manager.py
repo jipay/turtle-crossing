@@ -12,13 +12,17 @@ class CarManager:
     def __init__(self):
         self.cars = []
         self.spawn()
+        self.car_speed = STARTING_MOVE_DISTANCE
 
     def spawn(self):
-        self.cars.append(Car(random.choice(COLORS)))
+        chance = random.randint(1, 6)
+        if chance == 1:
+            self.cars.append(Car(random.choice(COLORS)))
 
     def update(self):
-        if len(self.cars) < 10:
-            self.spawn()
+        self.spawn()
         for car in self.cars:
-            car.move(STARTING_MOVE_DISTANCE)
+            car.move(self.car_speed)
 
+    def up_the_speed(self):
+        self.car_speed += MOVE_INCREMENT
